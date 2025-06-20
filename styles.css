@@ -327,10 +327,11 @@ body {
 }
 
 .role-selection {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    display: flex;
+    justify-content: center;
     gap: 2.5rem;
     margin-top: 2rem;
+    flex-wrap: wrap;
 }
 
 .role-card {
@@ -344,6 +345,9 @@ body {
     text-align: left;
     position: relative;
     overflow: hidden;
+    width: 350px;
+    min-width: 300px;
+    flex: 0 0 auto;
 }
 
 .role-card::before {
@@ -976,12 +980,15 @@ body {
     }
     
     .role-selection {
-        grid-template-columns: 1fr;
+        flex-direction: column;
+        align-items: center;
         gap: 1.5rem;
     }
     
     .role-card {
         padding: 2rem;
+        width: 100%;
+        max-width: 400px;
     }
     
     .auth-content {

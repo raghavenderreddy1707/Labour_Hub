@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Labor Connect - Daily Laborers & Job Providers</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Loading Screen -->
+        <div id="loadingScreen" class="loading-screen">
+            <div class="loading-spinner"></div>
+            <h2>Labor Connect</h2>
+            <p>Connecting Workers & Opportunities</p>
+        </div>
+
+        <!-- Header -->
+        <header id="header" class="header hidden">
+            <div class="container">
+                <div class="header-content">
+                    <div class="logo">
+                        <span class="logo-icon">🔨</span>
+                        <span class="logo-text">Labor Connect</span>
+                    </div>
+                    <div class="header-actions">
+                        <button id="themeToggle" class="icon-btn" title="Toggle Theme">
+                            <span class="theme-icon">🌙</span>
+                        </button>
+                        <button id="logoutBtn" class="btn btn-outline">
+                            <span>📤</span> Logout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Welcome Screen -->
+        <section id="welcomeScreen" class="screen welcome-screen">
+            <div class="container">
+                <div class="welcome-content">
+                    <div class="welcome-header">
+                        <h1>🔨 Labor Connect</h1>
+                        <p>Connecting skilled workers with opportunities</p>
+                    </div>
+                    
+                    <div class="role-selection">
+                        <div class="role-card laborer-card" data-role="laborer">
+                            <div class="role-icon">👷</div>
+                            <h3>I'm a Laborer</h3>
+                            <p>Find work opportunities</p>
+                            <ul>
+                                <li>Browse available jobs</li>
+                                <li>Apply to positions</li>
+                                <li>Build your profile</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="role-card provider-card" data-role="provider">
+                            <div class="role-icon">🧑‍💼</div>
+                            <h3>I Need Workers</h3>
+                            <p>Post job requirements</p>
+                            <ul>
+                                <li>Post job listings</li>
+                                <li>Find skilled workers</li>
+                                <li>Manage applications</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Auth Screen -->
+        <section id="authScreen" class="screen auth-screen hidden">
+            <div class="container">
+                <div class="auth-content">
+                    <div class="auth-header">
+                        <button id="backToWelcome" class="back-btn">← Back</button>
+                        <h2 id="authTitle">Join as Laborer</h2>
+                    </div>
+                    
+                    <div class="auth-tabs">
+                        <button class="tab-btn active" data-tab="register">Register</button>
+                        <button class="tab-btn" data-tab="login">Login</button>
+                    </div>
+                    
+                    <!-- Register Form -->
+                    <form id="registerForm" class="auth-form">
+                        <div class="form-group">
+                            <label>👤 Full Name</label>
+                            <input type="text" id="regName" required>
+                        </div>
+                        
+                        <div class="form-group" id="professionGroup">
+                            <label>🔧 Profession</label>
+                            <select id="regProfession" required>
+                                <option value="">Select your profession</option>
+                                <option value="plumber">Plumber</option>
+                                <option value="electrician">Electrician</option>
+                                <option value="carpenter">Carpenter</option>
+                                <option value="painter">Painter</option>
+                                <option value="mason">Mason</option>
+                                <option value="gardener">Gardener</option>
+                                <option value="cleaner">Cleaner</option>
+                                <option value="driver">Driver</option>
+                                <option value="mechanic">Mechanic</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>📍 Location</label>
+                            <input type="text" id="regLocation" placeholder="City, Area" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>📞 Contact Number</label>
+                            <input type="tel" id="regContact" placeholder="10-digit number" required>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Create Account</button>
+                    </form>
+                    
+                    <!-- Login Form -->
+                    <form id="loginForm" class="auth-form hidden">
+                        <div class="form-group">
+                            <label>📞 Contact Number</label>
+                            <input type="tel" id="loginContact" placeholder="Enter your contact number" required>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard Screen -->
+        <section id="dashboardScreen" class="screen dashboard-screen hidden">
+            <div class="container">
+                <!-- User Info Bar -->
+                <div class="user-info">
+                    <div class="user-details">
+                        <span class="user-name">Welcome back!</span>
+                        <span class="user-role"></span>
+                    </div>
+                    <div class="user-stats">
+                        <span class="stat" id="userStat">Jobs: 0</span>
+                    </div>
+                </div>
+
+                <!-- Navigation Tabs -->
+                <div class="nav-tabs">
+                    <button class="nav-tab active" data-view="browse">🔍 Browse Jobs</button>
+                    <button class="nav-tab" data-view="manage">📋 My Jobs</button>
+                    <button class="nav-tab" data-view="bookmarks">⭐ Saved</button>
+                    <button class="nav-tab provider-only hidden" data-view="post">➕ Post Job</button>
+                </div>
+
+                <!-- Browse Jobs View -->
+                <div id="browseView" class="view-content">
+                    <div class="search-filters">
+                        <div class="search-bar">
+                            <input type="text" id="searchInput" placeholder="🔍 Search jobs by keyword or location...">
+                        </div>
+                        <div class="filter-controls">
+                            <select id="professionFilter">
+                                <option value="">All Professions</option>
+                                <option value="plumber">Plumber</option>
+                                <option value="electrician">Electrician</option>
+                                <option value="carpenter">Carpenter</option>
+                                <option value="painter">Painter</option>
+                                <option value="mason">Mason</option>
+                                <option value="gardener">Gardener</option>
+                                <option value="cleaner">Cleaner</option>
+                                <option value="driver">Driver</option>
+                                <option value="mechanic">Mechanic</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <select id="locationFilter">
+                                <option value="">All Locations</option>
+                            </select>
+                            <select id="dateFilter">
+                                <option value="">All Dates</option>
+                                <option value="today">Today</option>
+                                <option value="week">This Week</option>
+                                <option value="month">This Month</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="jobsList" class="jobs-list">
+                        <div class="no-jobs">
+                            <p>🔍 No jobs found matching your criteria</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Manage Jobs View -->
+                <div id="manageView" class="view-content hidden">
+                    <div id="myJobsList" class="jobs-list">
+                        <div class="no-jobs">
+                            <p>📋 No jobs to display</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bookmarks View -->
+                <div id="bookmarksView" class="view-content hidden">
+                    <div id="bookmarksList" class="jobs-list">
+                        <div class="no-jobs">
+                            <p>⭐ No saved jobs yet</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Post Job View -->
+                <div id="postView" class="view-content hidden">
+                    <div class="post-form-container">
+                        <h3>📝 Post New Job</h3>
+                        <form id="postJobForm" class="post-form">
+                            <div class="form-group">
+                                <label>💼 Job Title</label>
+                                <input type="text" id="jobTitle" placeholder="e.g., Need experienced plumber" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>🔧 Required Profession</label>
+                                <select id="jobProfession" required>
+                                    <option value="">Select profession needed</option>
+                                    <option value="plumber">Plumber</option>
+                                    <option value="electrician">Electrician</option>
+                                    <option value="carpenter">Carpenter</option>
+                                    <option value="painter">Painter</option>
+                                    <option value="mason">Mason</option>
+                                    <option value="gardener">Gardener</option>
+                                    <option value="cleaner">Cleaner</option>
+                                    <option value="driver">Driver</option>
+                                    <option value="mechanic">Mechanic</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>📝 Job Description</label>
+                                <textarea id="jobDescription" placeholder="Describe the work needed, requirements, etc." rows="4" required></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>📍 Work Location</label>
+                                <input type="text" id="jobLocation" placeholder="Work site address or area" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>📅 Work Date</label>
+                                <input type="date" id="jobDate" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>📞 Contact Info</label>
+                                <input type="tel" id="jobContact" placeholder="Contact number for this job" required>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">Post Job</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modal -->
+        <div id="modal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modalTitle">Job Details</h3>
+                    <button id="modalClose" class="modal-close">×</button>
+                </div>
+                <div id="modalBody" class="modal-body">
+                    <!-- Modal content will be inserted here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Toast Notifications -->
+        <div id="toastContainer" class="toast-container"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -50,18 +50,27 @@ class LaborApp {
         });
 
         // Navigation
-        document.getElementById('backToWelcome').addEventListener('click', () => {
-            this.showScreen('welcome');
-        });
+        const backToWelcomeBtn = document.getElementById('backToWelcome');
+        if (backToWelcomeBtn) {
+            backToWelcomeBtn.addEventListener('click', () => {
+                this.showScreen('welcome');
+            });
+        }
 
-        document.getElementById('logoutBtn').addEventListener('click', () => {
-            this.logout();
-        });
+        const logoutBtn = document.getElementById('logoutBtn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', () => {
+                this.logout();
+            });
+        }
 
         // Theme toggle
-        document.getElementById('themeToggle').addEventListener('click', () => {
-            this.toggleTheme();
-        });
+        const themeToggle = document.getElementById('themeToggle');
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                this.toggleTheme();
+            });
+        }
 
         // Auth tabs
         document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -71,20 +80,29 @@ class LaborApp {
         });
 
         // Forms
-        document.getElementById('registerForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            this.handleRegistration();
-        });
+        const registerForm = document.getElementById('registerForm');
+        if (registerForm) {
+            registerForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.handleRegistration();
+            });
+        }
 
-        document.getElementById('loginForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            this.handleLogin();
-        });
+        const loginForm = document.getElementById('loginForm');
+        if (loginForm) {
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.handleLogin();
+            });
+        }
 
-        document.getElementById('postJobForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            this.handleJobPost();
-        });
+        const postJobForm = document.getElementById('postJobForm');
+        if (postJobForm) {
+            postJobForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.handleJobPost();
+            });
+        }
 
         // Dashboard navigation
         document.querySelectorAll('.nav-tab').forEach(tab => {
@@ -94,38 +112,58 @@ class LaborApp {
         });
 
         // Search and filters
-        document.getElementById('searchInput').addEventListener('input', () => {
-            this.filterJobs();
-        });
+        const searchInput = document.getElementById('searchInput');
+        if (searchInput) {
+            searchInput.addEventListener('input', () => {
+                this.filterJobs();
+            });
+        }
 
-        document.getElementById('professionFilter').addEventListener('change', () => {
-            this.filterJobs();
-        });
+        const professionFilter = document.getElementById('professionFilter');
+        if (professionFilter) {
+            professionFilter.addEventListener('change', () => {
+                this.filterJobs();
+            });
+        }
 
-        document.getElementById('locationFilter').addEventListener('change', () => {
-            this.filterJobs();
-        });
+        const locationFilter = document.getElementById('locationFilter');
+        if (locationFilter) {
+            locationFilter.addEventListener('change', () => {
+                this.filterJobs();
+            });
+        }
 
-        document.getElementById('dateFilter').addEventListener('change', () => {
-            this.filterJobs();
-        });
+        const dateFilter = document.getElementById('dateFilter');
+        if (dateFilter) {
+            dateFilter.addEventListener('change', () => {
+                this.filterJobs();
+            });
+        }
 
         // Modal
-        document.getElementById('modalClose').addEventListener('click', () => {
-            this.closeModal();
-        });
-
-        document.getElementById('modal').addEventListener('click', (e) => {
-            if (e.target.id === 'modal') {
+        const modalClose = document.getElementById('modalClose');
+        if (modalClose) {
+            modalClose.addEventListener('click', () => {
                 this.closeModal();
-            }
-        });
+            });
+        }
+
+        const modal = document.getElementById('modal');
+        if (modal) {
+            modal.addEventListener('click', (e) => {
+                if (e.target.id === 'modal') {
+                    this.closeModal();
+                }
+            });
+        }
     }
 
     setupTheme() {
         document.documentElement.setAttribute('data-theme', this.theme);
         const themeIcon = document.querySelector('.theme-icon');
-        themeIcon.textContent = this.theme === 'dark' ? '☀️' : '🌙';
+        if (themeIcon) {
+            themeIcon.textContent = this.theme === 'dark' ? '☀️' : '🌙';
+        }
     }
 
     checkExistingSession() {
@@ -139,10 +177,13 @@ class LaborApp {
 
     hideLoadingScreen() {
         setTimeout(() => {
-            document.getElementById('loadingScreen').classList.add('fade-out');
-            setTimeout(() => {
-                document.getElementById('loadingScreen').style.display = 'none';
-            }, 500);
+            const loadingScreen = document.getElementById('loadingScreen');
+            if (loadingScreen) {
+                loadingScreen.classList.add('fade-out');
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                }, 500);
+            }
         }, 1500);
     }
 
@@ -160,10 +201,12 @@ class LaborApp {
 
         // Show/hide header based on screen
         const header = document.getElementById('header');
-        if (screenName === 'dashboard') {
-            header.classList.remove('hidden');
-        } else {
-            header.classList.add('hidden');
+        if (header) {
+            if (screenName === 'dashboard') {
+                header.classList.remove('hidden');
+            } else {
+                header.classList.add('hidden');
+            }
         }
     }
 
@@ -173,14 +216,16 @@ class LaborApp {
         const authTitle = document.getElementById('authTitle');
         const professionGroup = document.getElementById('professionGroup');
         
-        if (role === 'laborer') {
-            authTitle.textContent = 'Join as Laborer 👷';
-            professionGroup.style.display = 'flex';
-            document.body.className = 'laborer-theme';
-        } else {
-            authTitle.textContent = 'Join as Job Provider 🧑‍💼';
-            professionGroup.style.display = 'none';
-            document.body.className = 'provider-theme';
+        if (authTitle && professionGroup) {
+            if (role === 'laborer') {
+                authTitle.textContent = 'Join as Laborer 👷';
+                professionGroup.style.display = 'flex';
+                document.body.className = 'laborer-theme';
+            } else {
+                authTitle.textContent = 'Join as Job Provider 🧑‍💼';
+                professionGroup.style.display = 'none';
+                document.body.className = 'provider-theme';
+            }
         }
         
         this.showScreen('auth');
@@ -192,27 +237,46 @@ class LaborApp {
             btn.classList.remove('active');
         });
         
-        document.querySelector(`[data-tab="${tab}"]`).classList.add('active');
+        const activeTab = document.querySelector(`[data-tab="${tab}"]`);
+        if (activeTab) {
+            activeTab.classList.add('active');
+        }
         
-        if (tab === 'register') {
-            document.getElementById('registerForm').classList.remove('hidden');
-            document.getElementById('loginForm').classList.add('hidden');
-        } else {
-            document.getElementById('registerForm').classList.add('hidden');
-            document.getElementById('loginForm').classList.remove('hidden');
+        const registerForm = document.getElementById('registerForm');
+        const loginForm = document.getElementById('loginForm');
+        
+        if (registerForm && loginForm) {
+            if (tab === 'register') {
+                registerForm.classList.remove('hidden');
+                loginForm.classList.add('hidden');
+            } else {
+                registerForm.classList.add('hidden');
+                loginForm.classList.remove('hidden');
+            }
         }
     }
 
     handleRegistration() {
+        const regName = document.getElementById('regName');
+        const regLocation = document.getElementById('regLocation');
+        const regContact = document.getElementById('regContact');
+        const regProfession = document.getElementById('regProfession');
+
+        if (!regName || !regLocation || !regContact) {
+            this.showToast('Please fill in all required fields', 'error');
+            return;
+        }
+
         const formData = {
-            name: document.getElementById('regName').value.trim(),
-            location: document.getElementById('regLocation').value.trim(),
-            contact: document.getElementById('regContact').value.trim(),
+            name: regName.value.trim(),
+            location: regLocation.value.trim(),
+            contact: regContact.value.trim(),
             role: this.currentRole
         };
 
-        if (this.currentRole === 'laborer') {
-            formData.profession = document.getElementById('regProfession').value;
+        // Add profession for laborers only
+        if (this.currentRole === 'laborer' && regProfession) {
+            formData.profession = regProfession.value;
         }
 
         // Validation
@@ -249,7 +313,14 @@ class LaborApp {
     }
 
     handleLogin() {
-        const contact = document.getElementById('loginContact').value.trim();
+        const loginContact = document.getElementById('loginContact');
+        
+        if (!loginContact) {
+            this.showToast('Contact field not found', 'error');
+            return;
+        }
+
+        const contact = loginContact.value.trim();
         
         if (!this.validateContact(contact)) {
             this.showToast('Please enter a valid 10-digit contact number', 'error');
@@ -293,29 +364,36 @@ class LaborApp {
         const userRole = document.querySelector('.user-role');
         const userStat = document.getElementById('userStat');
 
-        userName.textContent = `Welcome back, ${this.currentUser.name}!`;
-        userRole.textContent = this.currentUser.role === 'laborer' 
-            ? `${this.currentUser.profession} • ${this.currentUser.location}`
-            : `Job Provider • ${this.currentUser.location}`;
+        if (userName && this.currentUser) {
+            userName.textContent = `Welcome back, ${this.currentUser.name}!`;
+        }
+
+        if (userRole && this.currentUser) {
+            userRole.textContent = this.currentUser.role === 'laborer' 
+                ? `${this.currentUser.profession || 'Worker'} • ${this.currentUser.location}`
+                : `Job Provider • ${this.currentUser.location}`;
+        }
 
         // Update statistics
-        if (this.currentUser.role === 'laborer') {
-            const appliedJobs = this.applications.filter(app => 
-                app.laborerId === this.currentUser.id
-            ).length;
-            userStat.textContent = `Applied: ${appliedJobs}`;
-        } else {
-            const postedJobs = this.jobs.filter(job => 
-                job.providerId === this.currentUser.id
-            ).length;
-            userStat.textContent = `Posted: ${postedJobs}`;
+        if (userStat && this.currentUser) {
+            if (this.currentUser.role === 'laborer') {
+                const appliedJobs = this.applications.filter(app => 
+                    app.laborerId === this.currentUser.id
+                ).length;
+                userStat.textContent = `Applied: ${appliedJobs}`;
+            } else {
+                const postedJobs = this.jobs.filter(job => 
+                    job.providerId === this.currentUser.id
+                ).length;
+                userStat.textContent = `Posted: ${postedJobs}`;
+            }
         }
     }
 
     setupDashboardForRole() {
         const providerOnlyElements = document.querySelectorAll('.provider-only');
         
-        if (this.currentUser.role === 'provider') {
+        if (this.currentUser && this.currentUser.role === 'provider') {
             providerOnlyElements.forEach(el => el.classList.remove('hidden'));
             document.body.className = 'provider-theme';
         } else {
@@ -332,13 +410,21 @@ class LaborApp {
         document.querySelectorAll('.nav-tab').forEach(tab => {
             tab.classList.remove('active');
         });
-        document.querySelector(`[data-view="${viewName}"]`).classList.add('active');
+        
+        const activeTab = document.querySelector(`[data-view="${viewName}"]`);
+        if (activeTab) {
+            activeTab.classList.add('active');
+        }
 
         // Show correct view
         document.querySelectorAll('.view-content').forEach(view => {
             view.classList.add('hidden');
         });
-        document.getElementById(viewName + 'View').classList.remove('hidden');
+        
+        const targetView = document.getElementById(viewName + 'View');
+        if (targetView) {
+            targetView.classList.remove('hidden');
+        }
 
         // Load view content
         switch (viewName) {
@@ -359,13 +445,25 @@ class LaborApp {
 
     // Job Management
     handleJobPost() {
+        const jobTitle = document.getElementById('jobTitle');
+        const jobProfession = document.getElementById('jobProfession');
+        const jobDescription = document.getElementById('jobDescription');
+        const jobLocation = document.getElementById('jobLocation');
+        const jobDate = document.getElementById('jobDate');
+        const jobContact = document.getElementById('jobContact');
+
+        if (!jobTitle || !jobProfession || !jobDescription || !jobLocation || !jobDate || !jobContact) {
+            this.showToast('Please fill in all required fields', 'error');
+            return;
+        }
+
         const jobData = {
-            title: document.getElementById('jobTitle').value.trim(),
-            profession: document.getElementById('jobProfession').value,
-            description: document.getElementById('jobDescription').value.trim(),
-            location: document.getElementById('jobLocation').value.trim(),
-            date: document.getElementById('jobDate').value,
-            contact: document.getElementById('jobContact').value.trim()
+            title: jobTitle.value.trim(),
+            profession: jobProfession.value,
+            description: jobDescription.value.trim(),
+            location: jobLocation.value.trim(),
+            date: jobDate.value,
+            contact: jobContact.value.trim()
         };
 
         if (!this.validateJobPost(jobData)) {
@@ -390,10 +488,17 @@ class LaborApp {
     }
 
     resetJobForm() {
-        document.getElementById('postJobForm').reset();
+        const postJobForm = document.getElementById('postJobForm');
+        if (postJobForm) {
+            postJobForm.reset();
+        }
+        
         // Set minimum date to today
-        const today = new Date().toISOString().split('T')[0];
-        document.getElementById('jobDate').min = today;
+        const jobDate = document.getElementById('jobDate');
+        if (jobDate) {
+            const today = new Date().toISOString().split('T')[0];
+            jobDate.min = today;
+        }
     }
 
     // Job Loading and Filtering
@@ -403,15 +508,17 @@ class LaborApp {
     }
 
     loadManageJobs() {
-        let relevantJobs;
+        let relevantJobs = [];
         
-        if (this.currentUser.role === 'provider') {
-            relevantJobs = this.jobs.filter(job => job.providerId === this.currentUser.id);
-        } else {
-            const appliedJobIds = this.applications
-                .filter(app => app.laborerId === this.currentUser.id)
-                .map(app => app.jobId);
-            relevantJobs = this.jobs.filter(job => appliedJobIds.includes(job.id));
+        if (this.currentUser) {
+            if (this.currentUser.role === 'provider') {
+                relevantJobs = this.jobs.filter(job => job.providerId === this.currentUser.id);
+            } else {
+                const appliedJobIds = this.applications
+                    .filter(app => app.laborerId === this.currentUser.id)
+                    .map(app => app.jobId);
+                relevantJobs = this.jobs.filter(job => appliedJobIds.includes(job.id));
+            }
         }
         
         this.displayJobs(relevantJobs, 'myJobsList');
@@ -427,6 +534,8 @@ class LaborApp {
     displayJobs(jobs, containerId) {
         const container = document.getElementById(containerId);
         
+        if (!container) return;
+
         if (jobs.length === 0) {
             container.innerHTML = '<div class="no-jobs"><p>📋 No jobs to display</p></div>';
             return;
@@ -476,13 +585,13 @@ class LaborApp {
     createJobCard(job) {
         const isBookmarked = this.bookmarks.includes(job.id);
         const hasApplied = this.applications.some(app => 
-            app.jobId === job.id && app.laborerId === this.currentUser.id
+            app.jobId === job.id && app.laborerId === (this.currentUser ? this.currentUser.id : '')
         );
-        const isOwner = job.providerId === this.currentUser.id;
+        const isOwner = this.currentUser && job.providerId === this.currentUser.id;
         const timeAgo = this.getTimeAgo(job.createdAt);
 
         let actions = '';
-        if (this.currentUser.role === 'laborer' && !isOwner) {
+        if (this.currentUser && this.currentUser.role === 'laborer' && !isOwner) {
             actions = `
                 <button class="btn btn-ghost bookmark-btn" title="${isBookmarked ? 'Remove bookmark' : 'Bookmark job'}">
                     ${isBookmarked ? '❤️' : '🤍'}
@@ -528,10 +637,17 @@ class LaborApp {
     }
 
     filterJobs() {
-        const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-        const professionFilter = document.getElementById('professionFilter').value;
-        const locationFilter = document.getElementById('locationFilter').value;
-        const dateFilter = document.getElementById('dateFilter').value;
+        const searchInput = document.getElementById('searchInput');
+        const professionFilter = document.getElementById('professionFilter');
+        const locationFilter = document.getElementById('locationFilter');
+        const dateFilter = document.getElementById('dateFilter');
+
+        if (!searchInput || !professionFilter || !locationFilter || !dateFilter) return;
+
+        const searchTerm = searchInput.value.toLowerCase();
+        const professionValue = professionFilter.value;
+        const locationValue = locationFilter.value;
+        const dateValue = dateFilter.value;
 
         let filteredJobs = this.jobs.filter(job => job.status === 'active');
 
@@ -546,23 +662,23 @@ class LaborApp {
         }
 
         // Profession filter
-        if (professionFilter) {
-            filteredJobs = filteredJobs.filter(job => job.profession === professionFilter);
+        if (professionValue) {
+            filteredJobs = filteredJobs.filter(job => job.profession === professionValue);
         }
 
         // Location filter
-        if (locationFilter) {
+        if (locationValue) {
             filteredJobs = filteredJobs.filter(job => 
-                job.location.toLowerCase().includes(locationFilter.toLowerCase())
+                job.location.toLowerCase().includes(locationValue.toLowerCase())
             );
         }
 
         // Date filter
-        if (dateFilter) {
+        if (dateValue) {
             const now = new Date();
             filteredJobs = filteredJobs.filter(job => {
                 const jobDate = new Date(job.createdAt);
-                switch (dateFilter) {
+                switch (dateValue) {
                     case 'today':
                         return jobDate.toDateString() === now.toDateString();
                     case 'week':
@@ -584,14 +700,18 @@ class LaborApp {
         const locations = [...new Set(this.jobs.map(job => job.location))];
         const locationFilter = document.getElementById('locationFilter');
         
-        locationFilter.innerHTML = '<option value="">All Locations</option>';
-        locations.forEach(location => {
-            locationFilter.innerHTML += `<option value="${location}">${location}</option>`;
-        });
+        if (locationFilter) {
+            locationFilter.innerHTML = '<option value="">All Locations</option>';
+            locations.forEach(location => {
+                locationFilter.innerHTML += `<option value="${location}">${location}</option>`;
+            });
+        }
     }
 
     // Job Actions
     applyToJob(jobId) {
+        if (!this.currentUser) return;
+
         const existingApplication = this.applications.find(app =>
             app.jobId === jobId && app.laborerId === this.currentUser.id
         );
@@ -667,6 +787,8 @@ class LaborApp {
         const modalTitle = document.getElementById('modalTitle');
         const modalBody = document.getElementById('modalBody');
         
+        if (!modalTitle || !modalBody) return;
+
         modalTitle.textContent = job.title;
         
         const applications = this.applications.filter(app => app.jobId === jobId);
@@ -714,15 +836,21 @@ class LaborApp {
                     <p>${job.providerName}</p>
                 </div>
                 
-                ${this.currentUser.role === 'provider' && job.providerId === this.currentUser.id ? applicantsList : ''}
+                ${this.currentUser && this.currentUser.role === 'provider' && job.providerId === this.currentUser.id ? applicantsList : ''}
             </div>
         `;
 
-        document.getElementById('modal').classList.remove('hidden');
+        const modal = document.getElementById('modal');
+        if (modal) {
+            modal.classList.remove('hidden');
+        }
     }
 
     closeModal() {
-        document.getElementById('modal').classList.add('hidden');
+        const modal = document.getElementById('modal');
+        if (modal) {
+            modal.classList.add('hidden');
+        }
     }
 
     // Theme Management
@@ -753,16 +881,19 @@ class LaborApp {
         toast.className = `toast ${type}`;
         toast.textContent = message;
 
-        document.getElementById('toastContainer').appendChild(toast);
+        const toastContainer = document.getElementById('toastContainer');
+        if (toastContainer) {
+            toastContainer.appendChild(toast);
 
-        setTimeout(() => {
-            toast.style.animation = 'slideIn 0.3s ease reverse';
             setTimeout(() => {
-                if (toast.parentNode) {
-                    toast.parentNode.removeChild(toast);
-                }
-            }, 300);
-        }, 3000);
+                toast.style.animation = 'slideIn 0.3s ease reverse';
+                setTimeout(() => {
+                    if (toast.parentNode) {
+                        toast.parentNode.removeChild(toast);
+                    }
+                }, 300);
+            }, 3000);
+        }
     }
 
     // Validation Functions
